@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HackDesignSystem"
 include(":app")
+include(":hackdesignsystem")
