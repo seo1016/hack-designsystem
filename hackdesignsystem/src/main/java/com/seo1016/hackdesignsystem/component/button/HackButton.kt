@@ -3,7 +3,6 @@ package com.seo1016.hackdesignsystem.component.button
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -42,6 +41,46 @@ sealed class ButtonType(
         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 8.dp),
         shape = RoundedCornerShape(6.dp)
     )
+}
+
+@Composable
+fun HackMaxWidthButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    tint: Color = TossBlue,
+    type: ButtonType,
+    enabled: Boolean = true,
+    isLoading: Boolean = false,
+    shape: Shape? = null,
+    contentPadding: PaddingValues? = null,
+    onClick: () -> Unit,
+) {
+    val isEnabled = enabled && !isLoading
+
+    val buttonColors = ButtonDefaults.buttonColors(
+        containerColor = tint,
+        contentColor = Color.White,
+        disabledContainerColor = tint,
+        disabledContentColor = Color.White.copy(alpha = 0.5f)
+    )
+
+    Button(
+        modifier = modifier.fillMaxWidth(),
+        onClick = onClick,
+        colors = buttonColors,
+        enabled = isEnabled,
+        contentPadding = contentPadding?: type.contentPadding,
+        shape = shape?: type.shape
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier,
+            color = Color.White,
+            fontSize = 18.sp,
+            fontFamily = pretendard,
+            fontWeight = FontWeight.SemiBold
+        )
+    }
 }
 
 @Composable
@@ -84,31 +123,41 @@ fun HackButton(
     }
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun HackButtonPreview() {
     HackDesignSystemTheme {
         Column(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(15.dp)
                 .background(Color.White)
                 .verticalScroll(rememberScrollState()),
         ) {
-            HackButton(
+            HackMaxWidthButton(
                 text = "로그인",
-                type = ButtonType.Large,
-                modifier = Modifier.fillMaxWidth()
+                type = ButtonType.Large
+            ) {}
+            HackMaxWidthButton(
+                text = "변경하기",
+                type = ButtonType.Medium
+            ) {}
+            HackMaxWidthButton(
+                text = "확인하기",
+                type = ButtonType.Small
             ) {}
             HackButton(
-                text = "로그인",
-                type = ButtonType.Medium,
-                modifier = Modifier.fillMaxWidth()
+                text = "확인",
+                type = ButtonType.Large
             ) {}
             HackButton(
-                text = "로그인",
-                type = ButtonType.Small,
-                modifier = Modifier.fillMaxWidth()
+                text = "확인",
+                type = ButtonType.Medium
+            ) {}
+            HackButton(
+                text = "확인",
+                type = ButtonType.Small
             ) {}
         }
     }
