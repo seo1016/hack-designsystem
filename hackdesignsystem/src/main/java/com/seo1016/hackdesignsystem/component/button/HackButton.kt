@@ -118,7 +118,7 @@ fun HackButton(
             color = Color.White,
             fontSize = 18.sp,
             fontFamily = pretendard,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.Medium
         )
     }
 }
